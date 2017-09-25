@@ -24,8 +24,11 @@ EPSILON = pow(10, -8)  # To account for rounding errors.
 DECIMAL_PLACES = 10
 
 
-class SquareCircleParser(object):
+class CircleSplitterParser(object):
     """
+    An attempt at solving this circle-splitting problem:
+    https://www.reddit.com/r/dailyprogrammer/comments/6ksmh5/20170630_challenge_321_hard_circle_splitter/
+
     Use this class by initialising at the top level, and either piping to
     stdin/stdout, or specifying the input and output in the command-line
     arguments.
@@ -61,12 +64,11 @@ class SquareCircleParser(object):
             ))
         else:
             self.dest.write('No solution')
-    
+
     def debug(self, points, circle):
         """
         Plot this with matplotlib to see if it looks right.
         """
-
         import numpy as np
         import matplotlib.pyplot as plt
         from matplotlib.patches import Circle
@@ -99,7 +101,7 @@ class SquareCircleParser(object):
     def perpendicular_bisection(self, p1, p2):
         """
         Find the perpendicular bisection of the line which intersects the two
-        points. Returns (m, c) if the line is of the form y = mx + c, or 
+        points. Returns (m, c) if the line is of the form y = mx + c, or
         (INFINITY, c) if the line is of the form x = c.
         """
         x1, y1 = p1
@@ -113,8 +115,8 @@ class SquareCircleParser(object):
 
     def line_intersection(self, l1, l2):
         """
-        Given a pair of lines, returns the intersection point if it exists or None
-        if the lines are parallel.
+        Given a pair of lines, returns the intersection point if it exists or
+        None if the lines are parallel.
         """
         m1, c1 = l1
         m2, c2 = l2
@@ -133,7 +135,7 @@ class SquareCircleParser(object):
     def circumscribe(self, p1, p2, p3):
         """
         Given the points p1, p2, p3, return the circumcentre and the radius of
-        the circle, or None if this does not exist. 
+        the circle, or None if this does not exist.
         """
         l1 = self.perpendicular_bisection(p1, p2)
         l2 = self.perpendicular_bisection(p1, p3)
@@ -220,4 +222,4 @@ class SquareCircleParser(object):
         return (min_x, min_y, min_r)
 
 
-SquareCircleParser()
+CircleSplitterParser()
