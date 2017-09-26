@@ -3,6 +3,12 @@ from itertools import combinations
 
 
 def get_lines_from_stdin():
+    # For Python 2 compatibility.
+    try:
+       input = raw_input
+    except NameError:
+       pass
+
     try:
         while True:
             yield input()
@@ -57,7 +63,7 @@ class CircleSplitterParser(object):
         output = self.solve(points)
         if output:
             x, y, r = output
-            self.dest.write('{} {}\n{}'.format(
+            self.dest.write('{} {}\n{}\n'.format(
                 round(x, DECIMAL_PLACES),
                 round(y, DECIMAL_PLACES),
                 round(r, DECIMAL_PLACES),
@@ -148,7 +154,7 @@ class CircleSplitterParser(object):
         x1, y1 = p1
         r = pow(pow(x - x1, 2) + pow(y - y1, 2), 0.5)
 
-        return (*p, r)
+        return (x, y, r)
 
     def bounded(self, circle):
         x0, y0, r = circle
